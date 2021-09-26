@@ -1,2 +1,2 @@
 
-- [DEMO LINK](https://zkhomer.github.io/js_2048_game/)
+- [DEMO LINK](https://zkhomer.github.io/2048/)
