@@ -4,6 +4,12 @@ const cell = document.querySelectorAll('td');
 const startButton = document.querySelector('.start');
 const score = document.querySelector('.game-score');
 const message = document.querySelector('.message-container');
+const controlBtnLeft = document.querySelector('.control-left');
+const controlBtnRight = document.querySelector('.control-right');
+const controlBtnDown = document.querySelector('.control-down');
+const controlBtnUp = document.querySelector('.control-up');
+const test = document.querySelectorAll('.test');
+
 
 let scoreCount = 0;
 let check = 0;
@@ -123,7 +129,7 @@ const move = (reverse, horizontal) => {
         gameField[y][i] = element;
       } else {
         gameField[i][y] = element;
-      };
+      }
     });
 
     range.forEach((element, index) => {
@@ -148,7 +154,55 @@ const notification = (lose) => {
   });
 };
 
+test.forEach((el) => {
+  el.addEventListener('click', (e) => {
+    switch (`${e.target.innerText}`) {
+      case 'up': {
+        move(false, false);
+        up = (!check) ? 1 : 0;
+        break;
+      }
+
+      case 'down': {
+        move(true, false);
+        down = (!check) ? 1 : 0;
+        break;
+      }
+
+      case 'left': {
+        move(false, true);
+        left = (!check) ? 1 : 0;
+        break;
+      }
+
+      case 'right': {
+        move(true, true);
+        right = (!check) ? 1 : 0;
+        break;
+      }
+
+      default: {
+        return;
+      }
+    }
+    clearHTML();
+
+    if (check) {
+      createNewCell();
+    };
+    notification();
+
+    if (up && down && left && right) {
+      notification(true);
+    }
+    score.textContent = `${scoreCount}`;
+  }
+  );
+}
+);
+
 document.addEventListener('keyup', (e) => {
+
   switch (e.key) {
     case 'ArrowUp': {
       move(false, false);
@@ -178,7 +232,6 @@ document.addEventListener('keyup', (e) => {
       return;
     }
   }
-
   clearHTML();
 
   if (check) {
